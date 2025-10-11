@@ -178,7 +178,7 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
+    const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
 
 
@@ -190,12 +190,32 @@
 
 
     const signGoogle = () => {
-      alert(23);
+      signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const googleUser = result.user;
+        console.log(googleUser);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+      })
     }
 
 
     const signGithub = () => {
-      alert(24);
+      signInWithPopup(auth, githubProvider)
+      .then((result) => {
+        const githubUser = result.user;
+        console.log(githubUser);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+      })
     }
 
 
