@@ -62,7 +62,23 @@
         const githubProvider = new GithubAuthProvider();
 
         const userSignIn = () => {
-            alert(3);
+            const email = eMail.value;
+            const password = passWord.value;
+            if (email === '' || password === '') {
+                alert('Please fill all inputs');
+            } else {
+                signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log(user);
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorCode);
+                    console.log(errorMessage);
+                })
+            }
         }
 
         const signGoogle = () => {
