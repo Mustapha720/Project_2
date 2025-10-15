@@ -71,12 +71,22 @@
                 .then((userCredential) => {
                     const user = userCredential.user;
                     console.log(user);
+                    setTimeout(() => {
+                        user ? window.location.href = 'dashboard.html' : window.location.href = 'signin.html'
+                    }, 1500)
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.log(errorCode);
                     console.log(errorMessage);
+                    if (errorCode === 'auth/password-does-not-meet-requirements') {
+                        alert('Password must be at least 8 characters and include uppercase, lowercase, number, and special character.');
+                    } else if (errorCode === 'auth/invalid-credential') {
+                        alert("Invalid credentials. The email or password you entered is incorrect, missing, or doesn't match our records. Please double-check your login details and try again.");
+                    } else {
+                        console.log('Successful');
+                    }
                 })
             }
         }
