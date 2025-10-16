@@ -210,6 +210,14 @@
       .then((result) => {
         const googleUser = result.user;
         console.log(googleUser);
+        setTimeout(() => {
+          if (googleUser) {
+            window.location.href = 'dashboard.html'
+          } else {
+            alert('Sign up!');
+            window.location.href = 'index.html'
+          }
+        }, 1500)
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -225,6 +233,14 @@
       .then((result) => {
         const githubUser = result.user;
         console.log(githubUser);
+        setTimeout(() => {
+          if (githubUser) {
+            window.location.href = 'dashboard.html'
+          } else {
+            alert('Sign up!');
+            window.location.href = 'index.html'
+          }
+        }, 2000)
       })
       .catch((error) => {
         const errorCode = error.code;
