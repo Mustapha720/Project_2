@@ -59,42 +59,42 @@
         // })
 
 
-        // const submit = () => {
-        //     const areaValue = document.getElementById('area').value;
-        //     const option = document.getElementById('status').value;
-        //     console.log('area: ', areaValue);
-        //     console.log('status: ', option);
-        //     if (!areaValue) {
-        //         alert('Please input the area');
-        //     } else if (option === '') {
-        //         alert('Select an option');
-        //     } else {
-        //         const obj = {
-        //             area: areaValue,
-        //             status: option,
-        //             date: new Date().toLocaleDateString(),
-        //             time: new Date().toLocaleTimeString()
-        //         }
-        //         console.log(obj);
+        const submit = () => {
+            const areaValue = document.getElementById('area').value;
+            const option = document.getElementById('status').value;
+            console.log('area: ', areaValue);
+            console.log('status: ', option);
+            if (!areaValue) {
+                alert('Please input the area');
+            } else if (option === '') {
+                alert('Select an option');
+            } else {
+                const obj = {
+                    area: areaValue,
+                    status: option,
+                    date: new Date().toLocaleDateString(),
+                    time: new Date().toLocaleTimeString()
+                }
+                console.log(obj);
 
-        //         const objRef = ref(database, `light_status/${databaseList}`);
-        //         set(objRef, obj)
+                const objRef = ref(database, `light_status/${databaseList}`);
+                set(objRef, obj)
 
 
-        //         document.getElementById('area').value = '';
-        //     }
-        // }
+                document.getElementById('area').value = '';
+            }
+        }
 
-        // const newRef = ref(database, 'light_status')
-        // onValue(newRef, (snapshot) => {
-        //     const data = snapshot.val();
-        //     console.log(data);
-        //     if (data) {
-        //         databaseList = data.length;
-        //     } else {
-        //         databaseList = 0;
-        //     }
-        // })
+        const newRef = ref(database, 'light_status')
+        onValue(newRef, (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+            if (data) {
+                databaseList = data.length;
+            } else {
+                databaseList = 0;
+            }
+        })
 
 
         const userSignOut = () => {
