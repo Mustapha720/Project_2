@@ -11,15 +11,15 @@
 </head>
 
 <body>
-    <button onclick="userSignOut()">Sign Out</button>
+    <button onclick="userSignOut()" class="btn btn-danger">Sign Out</button>
     <div id="show"></div>
-    <input type="text" placeholder="Input your area (e.g Ogbomoso)">
-    <select name="Status" id="" title="Status" class="form-select">
+    <input type="text" placeholder="Input your area (e.g Ogbomoso)" id="area">
+    <select name="Status" id="status" title="Status" class="form-select">
         <option value="" disabled selected>Light Status</option>
-        <option value="">ON</option>
-        <option value="">OFF</option>
+        <option value="On">ON</option>
+        <option value="Off">OFF</option>
     </select>
-    <button>Submit</button>
+    <button onclick="submit()">Submit</button>
 
     <script type="module">
         // Import the functions you need from the SDKs you need
@@ -43,10 +43,72 @@
         const auth = getAuth(app);
         const database = getDatabase(app);
 
-        const userSignOut = () => {
-            alert(58);
+        let databaseList = 0;
+
+
+        // onAuthStateChanged(auth, (user) => {
+        //     if(user){
+        //         console.log(user)
+        //     } else {
+        //         show.innerHTML = '';
+        //         show.innerHTML = `<h4>Profile not found. Redirecting......</h4>`;
+        //         setTimeout(() => {
+        //             window.location.href = 'index.html';
+        //         }, 1500)
+        //     }
+        // })
+
+
+        const submit = () => {
+            const areaValue = document.getElementById('area').value;
+            const option = document.getElementById('status').value;
+            console.log('area: ', areaValue);
+            console.log('status: ', option);
+            if (!areaValue) {
+                alert('Please input the area');
+            } else if (option === '') {
+                alert('Select an option');
+            } else {
+                const obj = {
+                    area: areaValue,
+                    status: option,
+                    date: new Date().toLocaleDateString(),
+                    time: new Date().toLocaleTimeString()
+                }
+                console.log(obj);
+
+                const objRef = ref(database, `light_status/${databaseList}`);
+                set(objRef, obj)
+
+
+                document.getElementById('area').value = '';
+            }
         }
 
+        const newRef = ref(database, 'light_status')
+        onValue(newRef, (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+            if (data) {
+                databaseList = data.length;
+            } else {
+                databaseList = 0;
+            }
+        })
+
+
+        const userSignOut = () => {
+            signOut(auth)
+            .then(() => {
+                console.log('User signed out!');
+                window.location.href = 'index.html'
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        }
+
+        window.submit = submit
         window.userSignOut = userSignOut
     </script>
 </body>
