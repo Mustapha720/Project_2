@@ -11,7 +11,9 @@
 
 <body>
     <button onclick="userSignOut()" class="btn btn-danger">Sign Out</button>
-    <div id="show"></div>
+    <div id="show">
+        <img src="https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif" alt="" style="width: 50px;">
+    </div>
     <input type="text" placeholder="Input your name" id="user">
     <input type="text" placeholder="Input your area (e.g Ogbomoso)" id="area">
     <select name="Status" id="status" title="Status" class="form-select">
@@ -50,6 +52,8 @@
         onAuthStateChanged(auth, (user) => {
             if(user){
                 console.log(user)
+                show.innerHTML = ''
+                show.innerHTML += `<img src='${user.photoURL}' style="border-radius: 100%"> <br> ${user.displayName} <br> ${user.email}`
             } else {
                 show.innerHTML = '';
                 show.innerHTML = `<h4>Profile not found. Redirecting......</h4>`;
