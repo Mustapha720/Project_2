@@ -1,11 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page not found — NEPA Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #0d6efd;
+      --muted: #6c757d;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+    }
+
+    html,
+    body {
+      height: 100%;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      margin: 0
+    }
+
+    body {
+      background: linear-gradient(180deg, #f8fafc, #eef2ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px
+    }
+
+    .panel {
+      max-width: 980px;
+      width: 100%;
+      align-items: center
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), #0b5ed7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06)
+    }
+
+    h1 {
+      font-size: 86px;
+      margin: 0;
+      letter-spacing: -2px
+    }
+
+    h2 {
+      margin: .25rem 0 1rem
+    }
+
+    p.lead {
+      color: var(--muted)
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px
+    }
+
+    .help-list {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.95rem
+    }
+
+    .image-404 {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px
+    }
+
+    @media (max-width:900px) {
+      .panel {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 56px
+      }
+    }
+  </style>
 </head>
+
 <body>
-  
+  <div class="panel">
+    <div>
+      <div class="card">
+        <div class="brand mb-3">
+          <div class="mark">NE</div>
+          <div>
+            <div style="font-weight:700">NEPA Tracker</div>
+            <div style="font-size:13px;color:var(--muted)">Light status monitoring and reporting</div>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-start gap-4">
+          <div>
+            <h1>404</h1>
+            <h2>Page not found</h2>
+            <p class="lead">We couldn't find the page you're looking for. It might have been moved or removed.</p>
+
+            <div class="actions">
+              <a href="/dashboard.html" class="btn btn-outline-primary">Open Dashboard</a>
+              <a href="/signin.html" class="btn btn-outline-secondary">Sign in</a>
+            </div>
+
+            <ul class="help-list">
+              <li>Check the URL for typos</li>
+              <li>Use the dashboard to view recent reports</li>
+              <li>Contact support if the problem persists</li>
+            </ul>
+          </div>
+
+          <div style="flex:1;display:flex;align-items:center;justify-content:center">
+            <img src="https://cdn-icons-png.flaticon.com/512/564/564619.png" alt="404 illustration" class="image-404"
+              width="240">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
+
 </html>
