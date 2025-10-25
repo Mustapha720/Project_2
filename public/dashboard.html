@@ -7,22 +7,260 @@
     <title>NEPA Tracker</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --warm-1: #ff7a59;
+            /* coral */
+            --warm-2: #ffb199;
+            /* light warm */
+            --cool-1: #2ec4b6;
+            /* teal */
+            --cool-2: #3a86ff;
+            /* indigo */
+            --bg: #f7fbfc;
+            --card: #ffffff;
+            --muted: #6b7280;
+            --glass: rgba(255, 255, 255, 0.65);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+        }
+
+        /* Global reset tweaks */
+        html,
+        body {
+            height: 100%;
+            background: linear-gradient(135deg, var(--warm-2), var(--cool-1));
+            margin: 0;
+        }
+
+        body {
+            background-attachment: fixed;
+            -webkit-font-smoothing: antialiased;
+            color: #0f172a
+        }
+
+        .app-shell {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header.app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: .75rem
+        }
+
+        .brand h1 {
+            font-size: 1.125rem;
+            margin: 0;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 0.2px
+        }
+
+        .brand .badge {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            font-weight: 600;
+            padding: .25rem .5rem;
+            border-radius: 6px
+        }
+
+        #show {
+            display: flex;
+            align-items: center;
+            gap: .75rem
+        }
+
+        #show img {
+            width: 44px;
+            height: 44px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 6px 18px rgba(10, 10, 20, 0.2)
+        }
+
+        #show h4 {
+            margin: 0;
+            color: var(--card)
+        }
+
+        .signout {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #fff
+        }
+
+        main.container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 1.25rem;
+            align-items: start;
+            padding: 2rem 1.25rem
+        }
+
+        /* Responsive: stack columns on small */
+        @media (max-width:900px) {
+            main.container {
+                grid-template-columns: 1fr;
+                padding: 1rem
+            }
+        }
+
+        .card-custom {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 10px 30px rgba(12, 18, 30, 0.08);
+        }
+
+        .form-card .form-label {
+            font-weight: 600;
+            color: var(--muted);
+            font-size: .9rem
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 10px;
+            padding: .8rem .9rem;
+            border: 1px solid #e6eef3
+        }
+
+        .btn-primary.custom {
+            background: linear-gradient(90deg, var(--cool-1), var(--cool-2));
+            border: none;
+            color: #fff;
+            padding: .7rem 1.1rem;
+            border-radius: 10px;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(58, 134, 255, 0.18);
+        }
+
+        .muted {
+            color: var(--muted);
+            font-size: .9rem
+        }
+
+        .list-card h3 {
+            margin-top: 0;
+            margin-bottom: .75rem
+        }
+
+        #display {
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
+            max-height: 60vh;
+            overflow: auto;
+            padding-right: .25rem
+        }
+
+        .entry {
+            display: flex;
+            gap: .75rem;
+            align-items: center;
+            padding: .65rem;
+            border-radius: 10px;
+            background: linear-gradient(180deg, rgba(46, 196, 182, 0.04), rgba(58, 134, 255, 0.02));
+            border: 1px solid rgba(10, 10, 20, 0.03)
+        }
+
+        .entry .meta {
+            font-size: .85rem;
+            color: #082032
+        }
+
+        .entry .area {
+            font-weight: 700;
+            color: #06202a
+        }
+
+        /* small tweaks for the old inline GIF */
+        .loading-gif {
+            width: 50px;
+            height: 50px
+        }
+
+        /* utility */
+        .small {
+            font-size: .85rem
+        }
+    </style>
 </head>
 
 <body>
-    <button onclick="userSignOut()" class="btn btn-danger">Sign Out</button>
-    <div id="show">
-        <img src="https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif" alt="" style="width: 50px;">
+    <div class="app-shell">
+        <header class="app-header">
+            <div class="brand">
+                <h1>NEPA Tracker</h1>
+                <span class="badge small">Realtime</span>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:1rem">
+                <div id="show" class="d-flex align-items-center">
+                    <img class="loading-gif"
+                        src="https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif"
+                        alt="loading">
+                </div>
+
+                <button onclick="userSignOut()" class="btn signout">Sign Out</button>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="card-custom form-card">
+                <h2 style="margin-top:0; margin-bottom:.5rem">Report Light Status</h2>
+                <p class="muted small">Quickly submit the current status for your area.</p>
+
+                <div class="mb-3">
+                    <label class="form-label">Your name</label>
+                    <input type="text" placeholder="Input your name" id="user" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Area</label>
+                    <input type="text" placeholder="e.g. Ogbomoso" id="area" class="form-control">
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Light Status</label>
+                    <select name="Status" id="status" title="Status" class="form-select">
+                        <option value="" disabled selected>Light Status</option>
+                        <option value="On">ON</option>
+                        <option value="Off">OFF</option>
+                    </select>
+                </div>
+
+                <div style="display:flex; gap:.75rem; align-items:center">
+                    <button onclick="submit()" class="btn-primary custom">Submit</button>
+                    <button type="button" class="btn btn-outline-secondary"
+                        onclick="document.getElementById('area').value=''; document.getElementById('status').value='';">Clear</button>
+                </div>
+            </section>
+
+            <section class="card-custom list-card">
+                <h3>Recent Reports</h3>
+                <p class="small muted">Latest submissions will appear here in realtime.</p>
+                <div id="display"></div>
+            </section>
+        </main>
     </div>
-    <input type="text" placeholder="Input your name" id="user">
-    <input type="text" placeholder="Input your area (e.g Ogbomoso)" id="area">
-    <select name="Status" id="status" title="Status" class="form-select">
-        <option value="" disabled selected>Light Status</option>
-        <option value="On">ON</option>
-        <option value="Off">OFF</option>
-    </select>
-    <button onclick="submit()">Submit</button>
-    <div id="display"></div>
 
     <script type="module">
         // Import the functions you need from the SDKs you need
@@ -50,7 +288,7 @@
 
 
         onAuthStateChanged(auth, (user) => {
-            if(user){
+            if (user) {
                 console.log(user)
                 show.innerHTML = ''
                 show.innerHTML += `<img src='${user.photoURL}' style="border-radius: 100%"> <br> ${user.displayName} <br> ${user.email}`
@@ -106,23 +344,54 @@
             }
 
             document.getElementById('display').innerHTML = '';
-            data.map((info, index) => {
-                document.getElementById('display').innerHTML += `
-                    <p>${index + 1}.</p> ${info.area} ${info.status} ${info.date} ${info.time} ${info.identity}
-                `
+            const displayEl = document.getElementById('display');
+            // Normalize data to an array (handles both array and object shapes from RTDB)
+            const entries = Array.isArray(data) ? data : Object.values(data);
+
+            entries.forEach((info, index) => {
+                const status = (info && info.status) ? info.status : 'Unknown';
+                const area = (info && info.area) ? info.area : '';
+                const identity = (info && info.identity) ? info.identity : '';
+                const date = (info && info.date) ? info.date : '';
+                const time = (info && info.time) ? info.time : '';
+
+                // choose warm or cool for the small pill and left accent
+                const accent = status.toLowerCase() === 'on' ? 'linear-gradient(135deg, var(--cool-1), var(--cool-2))' : 'linear-gradient(135deg, var(--warm-1), var(--warm-2))';
+
+                displayEl.innerHTML += `
+                    <div class="entry" style="display:flex; flex-direction:row; justify-content:space-between; align-items:center;">
+                        <div style="display:flex; gap:.75rem; align-items:center; flex:1;">
+                            <div style="width:56px; height:56px; border-radius:12px; background:${accent}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; box-shadow:0 8px 20px rgba(10,10,20,0.06); flex-shrink:0;">
+                                ${index + 1}
+                            </div>
+
+                            <div style="min-width:0;">
+                                <div class="area" style="font-weight:700; color:#06202a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${area}</div>
+                                <div class="meta small" style="color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${identity} · ${date} ${time}</div>
+                            </div>
+                        </div>
+
+                        <div style="margin-left:1rem; display:flex; align-items:center;">
+                            <span style="padding:.45rem .7rem; border-radius:999px; background:${status.toLowerCase() === 'on' ? 'var(--cool-1)' : 'var(--warm-1)'}; color:#fff; font-weight:700; box-shadow:0 6px 18px rgba(10,10,20,0.06);">
+                                ${status}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            });
             })
-        })
+        
 
 
         const userSignOut = () => {
             signOut(auth)
-            .then(() => {
-                console.log('User signed out!');
-                window.location.href = 'index.html'
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+                .then(() => {
+                    console.log('User signed out!');
+                    window.location.href = 'index.html'
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
         }
 
         window.submit = submit
