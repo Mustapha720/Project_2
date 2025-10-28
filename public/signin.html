@@ -72,6 +72,7 @@
                     const user = userCredential.user;
                     console.log(user);
                     setTimeout(() => {
+                        document.getElementById('but').textContent = 'Loading...'
                         user ? window.location.href = 'dashboard.html' : window.location.href = 'signin.html'
                     }, 1500)
                 })
